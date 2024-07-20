@@ -139,7 +139,12 @@ void TaskOxygen(void *pvParameters) {
         temperatureCelsius = temperature / 10.0;
       
     }
-    vTaskDelay(pdMS_TO_TICKS(2500));
+    if(concentrationPercent<=22){
+ vTaskDelay(pdMS_TO_TICKS(1000)); 
+    }else{
+       vTaskDelay(pdMS_TO_TICKS(2000));
+    }
+   
   }
 }
 
@@ -149,13 +154,13 @@ void TaskPressure(void *pvParameters) {
    pressure1=PressureSens1.read()/1000;
    pressure2=PressureSens2.read()/1000;
 
-   if(pressure1>9577){
+   if(pressure2>9577){
     digitalWrite(Valve3,HIGH);   
    }else{
        digitalWrite(Valve3,LOW);  
    }
    
-    if(pressure2<8400){
+    if(pressure1<8400){
       digitalWrite(Relay,LOW);
       }else{
       digitalWrite(Relay,HIGH);
